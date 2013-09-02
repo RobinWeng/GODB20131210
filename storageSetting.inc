@@ -17,7 +17,7 @@ LabelName$(15) = "optlocalStorage[1]" : XPos(15) = 793: YPos(15) = 191: Wdh(15) 
 LabelName$(16) = "optlocalStorage[2]" : XPos(16) = 847: YPos(16) = 191: Wdh(16) = 63: Height(16) = 14
 LabelName$(17) = "lblcamera" : XPos(17) = 391: YPos(17) = 75: Wdh(17) = 103: Height(17) = 14
 LabelName$(18) = "lblfileformat" : XPos(18) = 595: YPos(18) = 112: Wdh(18) = 77: Height(18) = 15
-LabelName$(19) = "lblweeks" : XPos(19) = 641: YPos(19) = 229: Wdh(19) = 40: Height(19) = 14
+LabelName$(19) = "lblweeks" : XPos(19) = 641: YPos(19) = 266: Wdh(19) = 40: Height(19) = 14
 LabelName$(20) = "lblStorageFormat" : XPos(20) = 595: YPos(20) = 191: Wdh(20) = 102: Height(20) = 14
 LabelName$(21) = "lblFileFormat1" : XPos(21) = 595: YPos(21) = 151: Wdh(21) = 77: Height(21) = 14
 LabelName$(22) = "lbldummy" : XPos(22) = 314: YPos(22) = 285: Wdh(22) = 80: Height(22) = 14
@@ -87,3 +87,7 @@ LabelName$(85) = "chkSchedule5" : XPos(85) = 1072: YPos(85) = 355: Wdh(85) = 21:
 LabelName$(86) = "chkSchedule6" : XPos(86) = 1072: YPos(86) = 385: Wdh(86) = 21: Height(86) = 14
 LabelName$(87) = "chkSchedule7" : XPos(87) = 1072: YPos(87) = 416: Wdh(87) = 21: Height(87) = 14
 LabelName$(88) = "drpFromMin7" : XPos(88) = 1428: YPos(88) = 416: Wdh(88) = 63: Height(88) = -1
+
+LabelName$(89) = "lblSelectChannel" : XPos(89) = 391: YPos(89) = 75: Wdh(89) = 150: Height(89) = 14
+LabelName$(90) = "videoChannel" : XPos(90) = 595: YPos(90) = 75: Wdh(90) = 63: Height(90) = 14
+

@@ -137,6 +137,9 @@ dimi animateCount = 0 	 ' Stores the count for the animation done.
 dimi saveSuccess = 0	 'Value of 1 is success
 dims error$ = "" 		 'Stores the error returned while saving.
 dimi tempX				 ' Holds X value of success message label
+dims videoNum$(4)=("1","2","3","4")
+dimi setvideoch          'record the index of #videochannel
+
 End
 
 /***********************************************************
@@ -150,6 +153,8 @@ End
 Sub form_load
 	dimi retVal
 	retVal = loadIniValues()
+	
+	call addItemsToDropDown("videoChannel", videoNum$, 0)     //add dropdown for videochannel
 			
 	if ~maxPropIndex = 0 then 
 		msgbox("Unable to load initial values.")
@@ -177,11 +182,13 @@ Sub form_load
 	call alignFramectrls()							'TR-01
 	
 	'Set the initial settings for the scheduler and other controls  
-	call setInitialScheduler()     					'TR-01 
-	
+//	call setInitialScheduler()     					'TR-01 
+	call ShowInitialScheduler(0)
+	call ShowStorageRecInfo(0)
 	'set disable color to the option buttons
 	call setDisableColor                                   
 	#lblsuccessmessage$ = ""						'TR-35
+	
 End Sub
 
 
@@ -373,6 +380,8 @@ End Sub
  *	Created by:Jacques Franklin On 2009-03-12 20:15:40
  *	History: 
  ***********************************************************/
+ 
+/*
 sub setInitialScheduler()	
 	dimi row, col
 	dims ddValue$
@@ -390,7 +399,7 @@ sub setInitialScheduler()
 	dimi sdCard
 	
 	'Get storage setting values from camera
-	ret=getStorageSetting(uploadbyFTP, ftpfileformat, ftpfileformatname$, storeLocally, _
+	ret=getStorageRec(uploadbyFTP, ftpfileformat, ftpfileformatname$, storeLocally, _
 						  sdfileformat, sdfileformatname$, localStorage, repeatSchedule, noOfWeeks, _
 						  recordSchedule$,scheduleInfinity,sdCard)
 	if ret = 0 then
@@ -451,7 +460,7 @@ sub setInitialScheduler()
 	endif	
 	
 End Sub
-
+*/
 /***********************************************************
 '** setValuesToDropDown
  *	Description: 
@@ -592,6 +601,7 @@ Sub savePage()
 	dims tempstr$,ctrlName$
     
     'validate number weeks value
+	/*
 	dimi noOfWeeks
 	noOfWeeks = strToint(trim$(#txtweeks))	
 	if (noOfWeeks<1 or noOfWeeks>52) and #optrepeatschedule=1 then
@@ -601,11 +611,11 @@ Sub savePage()
 		~mousemoveflag=0
 		return
 	endif
-	
+	*/
 	'Assign zeros if recordSchedule array value is empty
 	For idx=0 to 6
 		if recordSchedule$(idx)="" then
-			recordSchedule$(idx)="0"+idx+"007000000000000"
+			recordSchedule$(idx)=#videochannel+"0"+idx+"007000000000000"
 			pprint "recordSchedule$("+idx+")"+recordSchedule$(idx)
 		endif
 	Next
@@ -618,13 +628,17 @@ Sub savePage()
 	call ClearDropDownValues()	
 	
 	'Save values to camera
-	ret=setStorageSetting(#ChkUploadViaFtp,#ddstorageformat.selidx, _
-							  #ChkLocalStorage,#ddstorageformat1.selidx,strtoint(#optlocalstorage$), _
+	//original version
+//	ret=setStorageSetting(#ChkUploadViaFtp,#ddstorageformat.selidx, _
+//							  #ChkLocalStorage,#ddstorageformat1.selidx,strtoint(#optlocalstorage$), _
+//							  #optRepeatSchedule,_
+//							  #txtweeks,_
+//							  #optruntimeinfinite,_
+//							  stringSchedule$)
+	ret=setStorageRec(#videochannel,_
 							  #optRepeatSchedule,_
-							  #txtweeks,_
 							  #optruntimeinfinite,_
-							  stringSchedule$)
-	
+							  stringSchedule$)	
 	if removeSHDLFlag = 0 then
 		if ret > 0 then 
 			saveSuccess = 1
@@ -666,7 +680,8 @@ Sub displaySaveStatus(dimi saveStatus)
 		#lblsuccessmessage$ = "Storage setting saved to camera "+~title$		'TR-35	
 		isMessageDisplayed = 1												'TR-35	
 		~mousemoveflag=0
-		call setInitialScheduler()
+//		call setInitialScheduler()
+		call ShowInitialScheduler(#videoChannel)
 		#lblsuccessmessage.paint(1)		
 	else 
 		~mousemoveflag=1
@@ -676,7 +691,7 @@ Sub displaySaveStatus(dimi saveStatus)
 			msgbox("Storage setting failed for the camera "+~title$)
 		endif
 		~mousemoveflag=0
-		call setInitialScheduler()
+		call ShowInitialScheduler(#videoChannel)
 	endif
 	~changeFlag = 0	
 	canReload = 1	
@@ -753,7 +768,7 @@ End Sub
  ***********************************************************/
 Sub btnCancel_Click
 	if canReload = 1 then
-		call setInitialScheduler()
+		call ShowInitialScheduler(#videoChannel)
 		~changeFlag = 0	
 	end if
 End Sub
@@ -1309,7 +1324,7 @@ Sub btnRemove_Click
 		
 		removeSHDLFlag=0
 		call ClearDropDownValues()	
-		setDeleteSchedule$()
+//		setDeleteSchedule$()
 	else
 		paintFlag=1
 	endif
@@ -1516,7 +1531,8 @@ End Sub
  *	History: 
  ***********************************************************/
 Sub btnFrameCancel_Click 				'TR-01	
-	call setValuesToDropDown(recordSchedule$)   
+//	call setValuesToDropDown(recordSchedule$)   
+	call ShowInitialScheduler(#videoChannel)
 	call frSchedule_Cancel
 End Sub
 
@@ -1625,7 +1641,7 @@ Sub btnFrameOK_Click
 				hrsDiff$=hrsDiff
 			endif			
 		
-			recordSchedule$(i-1) = "0"+scheduleNo+#{ctrlName$}+"0"+day+#{ctrlName2$}$+#{ctrlName4$}$+"00"+hrsDiff$+minDiff$+"00"  
+			recordSchedule$(i-1) = #videochannel+"0"+scheduleNo+#{ctrlName$}+"0"+day+#{ctrlName2$}$+#{ctrlName4$}$+"00"+hrsDiff$+minDiff$+"00"  
 '			msgbox(recordSchedule$(i-1))                  add by hst
 			pprint "recordSchedule$("+(i-1)+")="+recordSchedule$(i-1)
 		   
@@ -1879,3 +1895,61 @@ End Sub
 
 
 
+
+Sub ddstorageformat_Click
+	' Add Handler Code Here 
+End Sub
+
+
+
+Sub videoChannel_Click
+	' Add Handler Code Here 
+	setvideoch=#videochannel.selidx 
+End Sub
+
+Sub videoChannel_Change
+	' Add Handler Code Here 
+	dimi seluseto
+	iff seluseto == #videoChannel.selidx then return
+	setvideoch= #videoChannel.selidx 
+	call ShowStorageRecInfo(setvideoch)
+End Sub
+
+sub ShowInitialScheduler(dimi videochannel)
+	Dims commandtype$="schedule"
+	dims responeData$
+	dimi i
+	for i=0 to MAX_DAYS
+		getschedule(commandtype$,videochannel,i,recordSchedule$(i))
+	next
+	call setValuesToDropDown(recordSchedule$)
+End Sub
+
+sub ShowStorageRecInfo(Dimi videochannel)
+	dimi repeatSchedule,scheduleInfinity 
+	dimi index,retVal,findPos
+	dimi findPosArray(3)
+	dims commandtype$,responeData$
+	dims data$(3)
+	dimi i	
+	commandtype$="getstoragerec"
+	retVal =  getStorageRec(commandtype$,videochannel,responeData$)
+//	retVal=1
+//	responeData$="gettcp=192.168.1.173@501@200@8888@10@1@Ox8888@Ox87af@100@502"
+pprint responeData$
+	if retVal > 0 then  
+		findPosArray(0)=find(responeData$,"=")
+		pprint "respone begin"
+		for i=1 to 2
+			findPos=findPosArray(i-1) +1
+			findPosArray(i)=find(responeData$,"@",findPos)
+			data$(i-1)=mid$(responeData$,findPos,(findPosArray(i)-findPos))
+			pprint "data$("+i+"-1)="+data$(i-1)
+		next
+		data$(2)=mid$(responeData$,findPosArray(2)+1)
+		repeatSchedule=strtoint(trim$(data$(1)))
+		scheduleInfinity=strtoint(trim$(data$(2)))
+		iff repeatSchedule = 0 or repeatSchedule = 1 then #optRepeatSchedule$=repeatSchedule
+		iff scheduleInfinity = 0 or scheduleInfinity = 1 then #optruntimeinfinite$=scheduleInfinity
+	end if
+end sub

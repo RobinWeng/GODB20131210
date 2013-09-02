@@ -1633,7 +1633,7 @@ Sub recordOk_Click
 		recordOption4=0
 	endif
 	
-	recordOption=orb(orb((recordOption1 , recordOption2), recordOption3) , recordOption4)
+	recordOption=orb(orb(orb(recordOption1 , recordOption2), recordOption3) , recordOption4)
 	
 	msgbox(recordOption)
 		

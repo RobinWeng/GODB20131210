@@ -1826,31 +1826,51 @@ End Function
  *	Created by:Franklin  On 2009-03-09 12:04:40
  *	History: 
  ***********************************************************/
-function getStorageSetting(byref dimi uploadbyFTP,byref dimi ftpfileformat,byref dims ftpfileformatname$, byref dimi storeLocally, _
-						   byref dimi sdfileformat,byref dims sdfileformatname$, byref dimi localStorage, byref dimi repeatSchedule, byref dimi noOfWeeks, _
-						   byref dims recordSchedule$(),byref dimi scheduleInfinity,byref dimi sdCard)
-	
-	dimi retVal,ret,i
-	
-	retVal = getPropValue("schedule", recordSchedule$)
-	
-	dims varName$(11)  = ("uploadbyFTP","ftpfileformat","ftpfileformatname$","storeLocally","sdfileformat","sdfileformatname$","localstorage","repeatSchedule", _
-						 "noOfWeeks","scheduleInfinity","sdCard")
-	dims propName$(11) = ("grftpenable","gftpfileformat","gftpfileformatname","gsdrenable","gsdfileformat","gsdfileformatname","grecordlocalstorage","gschedulerepeatenable", _
-						 "gschedulenumweeks","gscheduleinfiniteenable","gsdinsert")
-	dims tempVal$(11)
-	ret=getiniValues(propName$,tempVal$)	
-	if ret>=0 then	
-		for i= 0 to ubound(tempVal$)
-			if i=2 or i=5 then
-				{varName$(i)} = tempVal$(i)				
-			else
-				{varName$(i)} = strtoint(tempVal$(i))			
-			endif
-		next
-	endif
-	return ret 
+Function getStorageRec(byref Dims commandtype$,dimi videochannel,byref dimi responeData$)
+	dimi ret,retVal
+	ret=HTTPDNLD(~camAddPath$+"vb.htm?"+commandtype$+"="+videochannel, "","test1.txt",2,SUPRESSUI,~authHeader$,,,responeData$)
+	if ret > 0 then
+		return ret
+	else
+		return -10	
+	end if 		
 End Function
+
+Function getschedule(byref Dims commandtype$,dimi videochannel,dimi index,byref dims responeData$)
+	dimi ret,retVal
+	ret=HTTPDNLD(~camAddPath$+"vb.htm?"+commandtype$+"="+videochannel+"@"+index, "","test1.txt",2,SUPRESSUI,~authHeader$,,,responeData$)
+	if ret > 0 then
+		return ret
+	else
+		return -10	
+	end if 		
+End Function
+
+//function getStorageSetting(byref dimi uploadbyFTP,byref dimi ftpfileformat,byref dims ftpfileformatname$, byref dimi storeLocally, _
+//						   byref dimi sdfileformat,byref dims sdfileformatname$, byref dimi localStorage, byref dimi repeatSchedule, byref dimi noOfWeeks, _
+//						   byref dims recordSchedule$(),byref dimi scheduleInfinity,byref dimi sdCard)
+//	
+//	dimi retVal,ret,i
+//	
+//	retVal = getPropValue("schedule", recordSchedule$)
+//	
+//	dims varName$(11)  = ("uploadbyFTP","ftpfileformat","ftpfileformatname$","storeLocally","sdfileformat","sdfileformatname$","localstorage","repeatSchedule", _
+//						 "noOfWeeks","scheduleInfinity","sdCard")
+//	dims propName$(11) = ("grftpenable","gftpfileformat","gftpfileformatname","gsdrenable","gsdfileformat","gsdfileformatname","grecordlocalstorage","gschedulerepeatenable", _
+//						 "gschedulenumweeks","gscheduleinfiniteenable","gsdinsert")
+///	dims tempVal$(11)
+///	ret=getiniValues(propName$,tempVal$)	
+//	if ret>=0 then	
+//		for i= 0 to ubound(tempVal$)
+//			if i=2 or i=5 then
+//				{varName$(i)} = tempVal$(i)				
+//			else
+//				{varName$(i)} = strtoint(tempVal$(i))			
+//			endif
+//		next
+//	endif
+//	return ret 
+//End Function
 
 
 /***********************************************************
@@ -1870,47 +1890,57 @@ End Function
  *	Created by:Franklin  On 2009-03-09 14:02:04
  *	History: 
  ***********************************************************/
-function setStorageSetting(dimi uploadbyFTP,dimi ftpfileformat, dimi storeLocally, _
-						   dimi sdfileformat, dimi localStorage, dimi repeatSchedule, dimi noOfWeeks, _
+Function setStorageRec(dimi videochannel,dimi repeatSchedule, _
 						   dimi scheduleInfinity, dims recordSchedule$)
-	dims storageSetting$
-	dims responseData$
+	dims storage$
+	dims responsedata$
 	dimi ret
-	storageSetting$="rftpenable="+uploadbyFTP+"&ftpfileformat="+ftpfileformat+"&sdrenable="+storeLocally+_
-					"&sdfileformat="+sdfileformat+"&recordlocalstorage="+localStorage+"&schedulerepeatenable="+repeatSchedule+"&schedulenumweeks="+noOfWeeks+_
-					"&schedule="+recordSchedule$+"&scheduleinfiniteenable="+scheduleInfinity+""
-					
-	ret = setProperties(storageSetting$, responseData$)
-	
-	if ret > 0 then
-	
-		dims propName$(8) = ("grftpenable","gftpfileformat","gsdrenable","gsdfileformat","grecordlocalstorage","gschedulerepeatenable", _
-						      "gschedulenumweeks","gscheduleinfiniteenable")
-
-		dims propVal$(8)
-		propVal$(0) = uploadbyFTP
-		propVal$(1) = ftpfileformat
-		propVal$(2) = storeLocally
-		propVal$(3) = sdfileformat
-		propVal$(4) = localStorage
-		propVal$(5) = repeatSchedule
-		propVal$(6) = noOfWeeks
-		propVal$(7) = scheduleInfinity
-		
-		~errorKeywords$ = ""
-		~errorKeywords$ =  chkRetStatusAndUpdate$(responseData$,propName$,propVal$)
-		
-		if len(~errorKeywords$) > 0 then
-			return -10
-		else
-			return ret
-		endif		
-		
-	endif 
-	
-	return ret				
-	
-End Function
+	storage$="setstoragerec="+videochannel+"@"+repeatSchedule+"@"+scheduleInfinity+"&schedule="+recordSchedule$
+//	msgbox(plc$)
+	ret = setProperties(storage$, responseData$)	
+	return ret					
+end function
+//function setStorageSetting(dimi uploadbyFTP,dimi ftpfileformat, dimi storeLocally, _
+//						   dimi sdfileformat, dimi localStorage, dimi repeatSchedule, dimi noOfWeeks, _
+//						   dimi scheduleInfinity, dims recordSchedule$)
+//	dims storageSetting$
+//	dims responseData$
+//	dimi ret
+//	storageSetting$="rftpenable="+uploadbyFTP+"&ftpfileformat="+ftpfileformat+"&sdrenable="+storeLocally+_
+//					"&sdfileformat="+sdfileformat+"&recordlocalstorage="+localStorage+"&schedulerepeatenable="+repeatSchedule+"&schedulenumweeks="+noOfWeeks+_
+//					"&schedule="+recordSchedule$+"&scheduleinfiniteenable="+scheduleInfinity+""
+//					
+//	ret = setProperties(storageSetting$, responseData$)
+//	
+//	if ret > 0 then
+//	
+//		dims propName$(8) = ("grftpenable","gftpfileformat","gsdrenable","gsdfileformat","grecordlocalstorage","gschedulerepeatenable", _
+//						      "gschedulenumweeks","gscheduleinfiniteenable")
+//
+//		dims propVal$(8)
+//		propVal$(0) = uploadbyFTP
+//		propVal$(1) = ftpfileformat
+//		propVal$(2) = storeLocally
+//		propVal$(3) = sdfileformat
+//		propVal$(4) = localStorage
+//		propVal$(5) = repeatSchedule
+//		propVal$(6) = noOfWeeks
+//		propVal$(7) = scheduleInfinity
+//		
+//		~errorKeywords$ = ""
+//		~errorKeywords$ =  chkRetStatusAndUpdate$(responseData$,propName$,propVal$)
+//		
+//		if len(~errorKeywords$) > 0 then
+//			return -10
+//		else
+//			return ret
+//		endif		
+//		
+//	endif 
+//	
+//	return ret				
+//	
+//End Function
 
 /***********************************************************
 '** getAlarmSetting
