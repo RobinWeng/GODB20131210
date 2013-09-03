@@ -648,7 +648,7 @@ Sub imgplay_Click
 		
 	dimi playSliderPos
 	playSliderPos=#playslider
-	call playExec(playSliderPos)
+	call playExec(playSliderPos,1)
 
 
 	
@@ -703,7 +703,7 @@ Sub imgsearch_Click
 		findPos = find(responserecdate$,"pbrechourdata=")
 		findPos += len("pbrechourdata=")
 		recordFlag$ = mid$(responserecdate$,findPos)	
-		'msgbox(recordFlag$)
+		//msgbox(recordFlag$)
 		'pprint "recordFlag="+recordFlag$
 		
 		for i=0 to 24*60-1
@@ -797,6 +797,9 @@ Sub img1play_Click
 	#img8play.focussable=1
 	#img8play.src$="!8play_on.jpg"
 	
+	dimi playSliderPos
+	playSliderPos=#playslider
+	call playExec(playSliderPos,1)
 	
 End Sub
 
@@ -828,6 +831,10 @@ Sub img2play_Click
 	#img8play.focussable=1
 	#img8play.src$="!8play_on.jpg"
 	
+	dimi playSliderPos
+	playSliderPos=#playslider
+	call playExec(playSliderPos,2)
+	
 End Sub
 
 
@@ -858,6 +865,10 @@ Sub img4play_Click
 	#img8play.focussable=1
 	#img8play.src$="!8play_on.jpg"
 	
+	dimi playSliderPos
+	playSliderPos=#playslider
+	call playExec(playSliderPos,4)
+	
 End Sub
 
 
@@ -887,6 +898,10 @@ Sub img8play_Click
 	
 	#img8play.focussable=0
 	#img8play.src$="!8play_off.jpg"
+	
+	dimi playSliderPos
+	playSliderPos=#playslider
+	call playExec(playSliderPos,8)
 	
 End Sub
 
@@ -1023,7 +1038,7 @@ Sub playslider_Change
 		return
 	endif
 
-	call playExec(playSliderPos)
+	call playExec(playSliderPos,2)
 	
 	#imgplay.focussable = 0	
 	#imgplay.src$="!play_on.jpg"
@@ -1052,7 +1067,7 @@ Sub playslider_Change
 End Sub
 
 
-Sub playExec(dimi sliderPos)
+Sub playExec(dimi sliderPos,dimi playspeed)
 	
 	dims playRecUrl$,playdate$,ch$,responeDate$
 	dimi a,ret,minute,second
@@ -1094,10 +1109,11 @@ Sub playExec(dimi sliderPos)
 	
 '	~chFlag= #streamChannel.selidx
 	
+	
 	ch$=#streamChannel.SelIDX
     minute=sliderPos/60
     second=sliderPos%60
-	playdate$=left$(#recorddate.tag,4)+"@"+mid$(#recorddate.tag,4,2)+"@"+right$(#recorddate.tag,2)+"@"+playhour+"@"+minute+"@"+second+"@"+ch$+"@"+playtime$
+	playdate$=left$(#recorddate.tag,4)+"@"+mid$(#recorddate.tag,4,2)+"@"+right$(#recorddate.tag,2)+"@"+playhour+"@"+minute+"@"+second+"@"+ch$+"@"+playtime$+"@"+1
 	pprint "playdate$="+playdate$
 	
 	'msgbox(playdate$)	
