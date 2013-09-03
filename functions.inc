@@ -1826,8 +1826,9 @@ End Function
  *	Created by:Franklin  On 2009-03-09 12:04:40
  *	History: 
  ***********************************************************/
-Function getStorageRec(byref Dims commandtype$,dimi videochannel,byref dimi responeData$)
+Function getStorageRec(byref Dims commandtype$,dimi videochannel,byref dims responeData$)
 	dimi ret,retVal
+	
 	ret=HTTPDNLD(~camAddPath$+"vb.htm?"+commandtype$+"="+videochannel, "","test1.txt",2,SUPRESSUI,~authHeader$,,,responeData$)
 	if ret > 0 then
 		return ret
@@ -1836,9 +1837,10 @@ Function getStorageRec(byref Dims commandtype$,dimi videochannel,byref dimi resp
 	end if 		
 End Function
 
-Function getschedule(byref Dims commandtype$,dimi videochannel,dimi index,byref dims responeData$)
+Function getschedule(byref Dims commandtype$,dimi videochannel,byref dims recordSchedule$())
 	dimi ret,retVal
-	ret=HTTPDNLD(~camAddPath$+"vb.htm?"+commandtype$+"="+videochannel+"@"+index, "","test1.txt",2,SUPRESSUI,~authHeader$,,,responeData$)
+	dims responeData$
+	ret=HTTPDNLD(~camAddPath$+"vb.htm?"+commandtype$+"="+videochannel, "","test1.txt",2,SUPRESSUI,~authHeader$,,,responeData$)
 	if ret > 0 then
 		return ret
 	else

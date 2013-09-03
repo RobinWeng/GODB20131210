@@ -1919,9 +1919,9 @@ sub ShowInitialScheduler(dimi videochannel)
 	Dims commandtype$="schedule"
 	dims responeData$
 	dimi i
-	for i=0 to MAX_DAYS
-		getschedule(commandtype$,videochannel,i,recordSchedule$(i))
-	next
+//	for i=0 to MAX_DAYS
+	getschedule(commandtype$,videochannel,recordSchedule$)
+//	next
 	call setValuesToDropDown(recordSchedule$)
 End Sub
 
