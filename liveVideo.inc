@@ -13,7 +13,9 @@ LabelName$(6) = "lblSelectChannel" : XPos(6) = 259: YPos(6) = 80: Wdh(6) = 86: H
 
 LabelName$(7) = "frmSnap" : XPos(7) = 540: YPos(7) = 530: Wdh(7) = 398: Height(7) = 80
 LabelName$(8) = "imgsdCard" : XPos(8) = 783: YPos(8) = 70: Wdh(8) = 40: Height(8) = 40
-LabelName$(9) = "imgDisplay1x" : XPos(9) = 840: YPos(9) = 596: Wdh(9) = 66: Height(9) = 48
+//LabelName$(9) = "imgDisplay1x" : XPos(9) = 840: YPos(9) = 596: Wdh(9) = 66: Height(9) = 48
+LabelName$(9) = "imgDisplay1x" : XPos(9) = 540: YPos(9) = 566: Wdh(9) = 66: Height(9) = 48
+
 
 LabelName$(10) = "txtSnapText" : XPos(10) = 654: YPos(10) = 560: Wdh(10) = 213: Height(10) = -1
 LabelName$(11) = "optStorage" : XPos(11) = 654: YPos(11) = 593: Wdh(11) = 83: Height(11) = 14
@@ -31,10 +33,15 @@ LabelName$(21) = "gdobg4" : XPos(21) = 553: YPos(21) = 410: Wdh(21) = 270: Heigh
 
 LabelName$(22) = "imgyuntai" : XPos(22) = 420: YPos(22) = 530: Wdh(22) = 100: Height(22) = 80
 
-LabelName$(53) = "yuzhidian" : XPos(53) = 840: YPos(53) = 530: Wdh(53) = 50: Height(53) = 20
-LabelName$(54) = "setbtn" : XPos(54) =910: YPos(54) = 540: Wdh(54) = 40: Height(54) = 30
-LabelName$(55) = "usebtn" : XPos(55) =955: YPos(55) = 540: Wdh(55) = 40: Height(55) = 30
-LabelName$(56) = "note" : XPos(56) =840: YPos(56) = 555: Wdh(56) = 60: Height(56) = 30
+LabelName$(53) = "yuzhidian" : XPos(53) = 900: YPos(53) = 530: Wdh(53) = 50: Height(53) = 20
+LabelName$(54) = "setbtn" : XPos(54) =840: YPos(54) = 580: Wdh(54) = 40: Height(54) = 30
+LabelName$(55) = "usebtn" : XPos(55) =900: YPos(55) = 580: Wdh(55) = 40: Height(55) = 30
+LabelName$(56) = "note" : XPos(56) =900: YPos(56) = 555: Wdh(56) = 60: Height(56) = 30
+LabelName$(57) = "lablepreset" : XPos(57) =840: YPos(57) = 530: Wdh(57) = 50: Height(57) = 20
+LabelName$(58) = "Labeldescribe" : XPos(58) =840: YPos(58) = 555: Wdh(58) = 50: Height(58) = 20
+
+
+
 
 LabelName$(25) = "imgjjd" : XPos(25) = 690: YPos(25) = 530: Wdh(25) = 45: Height(25) =33
 LabelName$(26) = "ljiaoju" : XPos(26) = 720: YPos(26) =540: Wdh(26) = 45: Height(26) =14
@@ -44,13 +51,21 @@ LabelName$(28) = "yuntaichannel" : XPos(28) = 250: YPos(28) =580: Wdh(28) = 80: 
 LabelName$(29) = "channelNum" : XPos(29) = 330: YPos(29) =615: Wdh(29) = 40: Height(29) = -1
 
 
-LabelName$(30) = "imgjdy" : XPos(30) = 690: YPos(30) = 596: Wdh(30) = 45: Height(30) = 33
-LabelName$(31) = "ljiaodian" : XPos(31) = 720: YPos(31) =606 : Wdh(31) = 45: Height(31) = 14
-LabelName$(32) = "imgjdj" : XPos(32) = 760: YPos(32) =596: Wdh(32) = 45: Height(32) = 33
+//LabelName$(30) = "imgjdy" : XPos(30) = 690: YPos(30) = 596: Wdh(30) = 45: Height(30) = 33
+//LabelName$(31) = "ljiaodian" : XPos(31) = 720: YPos(31) =606 : Wdh(31) = 45: Height(31) = 14
+//LabelName$(32) = "imgjdj" : XPos(32) = 760: YPos(32) =596: Wdh(32) = 45: Height(32) = 33
 
-LabelName$(33) = "imggqd" : XPos(33) = 540: YPos(33) =596: Wdh(33) = 45: Height(33) = 33
-LabelName$(34) = "lguangquan" : XPos(34) = 565: YPos(34) =606: Wdh(34) = 57: Height(34) = 14
-LabelName$(35) = "imggqx" : XPos(35) = 610: YPos(35) =596: Wdh(35) = 45: Height(35) = 33
+LabelName$(30) = "imgjdy" : XPos(30) = 690: YPos(30) = 566: Wdh(30) = 45: Height(30) = 33
+LabelName$(31) = "ljiaodian" : XPos(31) = 720: YPos(31) =576 : Wdh(31) = 45: Height(31) = 14
+LabelName$(32) = "imgjdj" : XPos(32) = 760: YPos(32) =566: Wdh(32) = 45: Height(32) = 33
+
+//LabelName$(33) = "imggqd" : XPos(33) = 540: YPos(33) =596: Wdh(33) = 45: Height(33) = 33
+//LabelName$(34) = "lguangquan" : XPos(34) = 565: YPos(34) =606: Wdh(34) = 57: Height(34) = 14
+//LabelName$(35) = "imggqx" : XPos(35) = 610: YPos(35) =596: Wdh(35) = 45: Height(35) = 33
+
+LabelName$(33) = "imggqd" : XPos(33) = 690: YPos(33) =602: Wdh(33) = 45: Height(33) = 33
+LabelName$(34) = "lguangquan" : XPos(34) = 720: YPos(34) =612: Wdh(34) = 57: Height(34) = 14
+LabelName$(35) = "imggqx" : XPos(35) = 760: YPos(35) =602: Wdh(35) = 45: Height(35) = 33
 
 
 LabelName$(36) = "imgdg" : XPos(36) = 540: YPos(36) =530: Wdh(36) = 45: Height(36) = 33
