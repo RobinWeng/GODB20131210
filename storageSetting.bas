@@ -602,7 +602,7 @@ End Sub
  *	Created by:Franklin Jacques.K On 2009-05-28 16:34:07
  ***********************************************************/
 Sub savePage()
-	msgbox("storagesetting.bas")
+//	msgbox("storagesetting.bas")
 	dimi ret
 	dimi idx,i
 	dims tempstr$,ctrlName$
@@ -1293,7 +1293,7 @@ End Sub
 Sub btnRemove_Click
 	iff canReload = 0 then return
 	paintFlag=0
-	msgbox("Do you want to remove all selected schedules",3) 
+//	msgbox("Do you want to remove all selected schedules",3) 
 	mousehandled(2)
 	keyhandled(2)
 	if confirm()=1 then	
