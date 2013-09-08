@@ -111,6 +111,8 @@ dims stringSchedule$    							'to get the schedule time as string
 dimi scheduleIdx(MAX_DAYS, totSchedule) 			'to pass the schedule index            
 dims schedule$(MAX_DAYS) 							'to store each schedule individually 
 dims recordSchedule$(MAX_DAYS) 						'to concat all the individual schedules
+dims chlrecordSchedule$(MAX_DAYS)                   //add by wbb
+
 
 dimi selIdxRow = -1									'to store the selected inedx of the row info when the mouse click event is raised
 dimi selectedRow									'to store the selected row info when the mouse click event is raised
@@ -154,8 +156,12 @@ Sub form_load
 	dimi retVal
 	retVal = loadIniValues()
 	
+	
 	call addItemsToDropDown("videoChannel", videoNum$, 0)     //add dropdown for videochannel
-			
+
+	call ShowStorageRecInfo(0)			
+	call ShowInitialScheduler(0)	
+	call btnFrameOK_Click()
 	if ~maxPropIndex = 0 then 
 		msgbox("Unable to load initial values.")
 		loadurl("!auth.frm")
@@ -183,9 +189,7 @@ Sub form_load
 	
 	'Set the initial settings for the scheduler and other controls  
 //	call setInitialScheduler()     					'TR-01 
-	call ShowInitialScheduler(0)
-	call ShowStorageRecInfo(0)
-	'set disable color to the option buttons
+	'set disable color to the option buttons	
 	call setDisableColor                                   
 	#lblsuccessmessage$ = ""						'TR-35
 	
@@ -478,11 +482,14 @@ End Sub
  	For idx=1 to MAX_DAYS
  		TempString$ = recordSchedule$(idx-1)
  		i=strtoint(tempString$(1))
+ 		pprint "tempString$(1)="+tempString$(1)
  		i=i+1
  		if TempString$(2)=1 or TempString$(2)=0 then
  			ctrlName$ = "chkschedule"+i
+ 			pprint "tempString$(2)="+tempString$(2)
 			#{ctrlName$}.checked=strtoint(TempString$(2))
 			ctrlName$ = "drpday"+i
+			pprint "tempString$(4)="+tempString$(4)
 			tempVal = strtoint(TempString$(4))-1
 			#{ctrlName$}$=tempVal
 			ctrlName$ = "drpFromHrs"+i
@@ -615,14 +622,14 @@ Sub savePage()
 	'Assign zeros if recordSchedule array value is empty
 	For idx=0 to 6
 		if recordSchedule$(idx)="" then
-			recordSchedule$(idx)=#videochannel+"0"+idx+"007000000000000"
-			pprint "recordSchedule$("+idx+")"+recordSchedule$(idx)
+			chlrecordSchedule$(idx)=#videochannel+"0"+idx+"007000000000000"
+			pprint "recordSchedule$("+idx+")"+chlrecordSchedule$(idx)
 		endif
 	Next
 	
 	'Build schedule string
-	stringSchedule$= "schedule="+recordSchedule$(0)+"&schedule="+recordSchedule$(1)+"&schedule="+recordSchedule$(2)+"&schedule="+recordSchedule$(3)_
-		+"&schedule="+recordSchedule$(4)+"&schedule="+recordSchedule$(5)+"&schedule="+recordSchedule$(6)
+	stringSchedule$= "schedule="+chlrecordSchedule$(0)+"&schedule="+chlrecordSchedule$(1)+"&schedule="+chlrecordSchedule$(2)+"&schedule="+chlrecordSchedule$(3)_
+		+"&schedule="+chlrecordSchedule$(4)+"&schedule="+chlrecordSchedule$(5)+"&schedule="+chlrecordSchedule$(6)
 		
 	'Reset all schedule drop downs
 	call ClearDropDownValues()	
@@ -1341,6 +1348,8 @@ End Sub
 Sub optrepeatschedule_Click	
 	#optruntimeinfinite.checked=0
 	#txtweeks.disabled=0
+	#btnAdd.disabled=0
+	#btnRemove.disabled=0
 End Sub
 
 
@@ -1353,6 +1362,8 @@ End Sub
 Sub optruntimeinfinite_Click	
 	#optrepeatschedule.checked=0
 	#txtweeks.disabled=1
+	#btnAdd.disabled=1
+	#btnRemove.disabled=1
 	#txtweeks$ = "0"
 End Sub
 
@@ -1531,7 +1542,7 @@ End Sub
  *	History: 
  ***********************************************************/
 Sub btnFrameCancel_Click 				'TR-01	
-//	call setValuesToDropDown(recordSchedule$)   
+	call setValuesToDropDown(recordSchedule$)   
 	call ShowInitialScheduler(#videoChannel)
 	call frSchedule_Cancel
 End Sub
@@ -1641,12 +1652,16 @@ Sub btnFrameOK_Click
 				hrsDiff$=hrsDiff
 			endif			
 		
-			recordSchedule$(i-1) = #videochannel+"0"+scheduleNo+#{ctrlName$}+"0"+day+#{ctrlName2$}$+#{ctrlName4$}$+"00"+hrsDiff$+minDiff$+"00"  
-'			msgbox(recordSchedule$(i-1))                  add by hst
+			recordSchedule$(i-1) ="0"+scheduleNo+#{ctrlName$}+"0"+day+#{ctrlName2$}$+#{ctrlName4$}$+"00"+hrsDiff$+minDiff$+"00"  			
+			//msgbox(recordSchedule$(i-1))                  //add by hst
 			pprint "recordSchedule$("+(i-1)+")="+recordSchedule$(i-1)
 		   
 		endif
 	Next
+	for i=1 to 7
+		chlrecordSchedule$(i-1) = #videochannel+recordSchedule$(i-1)
+		pprint "chlrecordSchedule$("+(i-1)+")="+chlrecordSchedule$(i-1)
+	next
 	
 	call deCalculation()
 	call frSchedule_Cancel
@@ -1909,20 +1924,22 @@ End Sub
 
 Sub videoChannel_Change
 	' Add Handler Code Here 
-	dimi seluseto
-	iff seluseto == #videoChannel.selidx then return
+	iff setvideoch == #videoChannel.selidx then return
 	setvideoch= #videoChannel.selidx 
 	call ShowStorageRecInfo(setvideoch)
+	call ShowInitialScheduler(setvideoch)
 End Sub
 
 sub ShowInitialScheduler(dimi videochannel)
-	Dims commandtype$="schedule"
-	dims responeData$
+	Dims commandtype$="getschedule"
 	dimi i
-//	for i=0 to MAX_DAYS
 	getschedule(commandtype$,videochannel,recordSchedule$)
-//	next
+	for i=0 to MAX_DAYS-1
+		pprint recordSchedule$(i)
+	next
+//	getschedule("getschedule", recordSchedule$)	
 	call setValuesToDropDown(recordSchedule$)
+	call btnFrameOK_Click()
 End Sub
 
 sub ShowStorageRecInfo(Dimi videochannel)
@@ -1933,7 +1950,7 @@ sub ShowStorageRecInfo(Dimi videochannel)
 	dims data$(3)
 	dimi i	
 	commandtype$="getstoragerec"
-	retVal =  getStorageRec(commandtype$,videochannel,responeData$)
+	retVal = getStorageRec(commandtype$,videochannel,responeData$)
 //	retVal=1
 //	responeData$="gettcp=192.168.1.173@501@200@8888@10@1@Ox8888@Ox87af@100@502"
 pprint responeData$
@@ -1947,9 +1964,41 @@ pprint responeData$
 			pprint "data$("+i+"-1)="+data$(i-1)
 		next
 		data$(2)=mid$(responeData$,findPosArray(2)+1)
-		repeatSchedule=strtoint(trim$(data$(1)))
-		scheduleInfinity=strtoint(trim$(data$(2)))
+		repeatSchedule=strtoint(trim$(data$(2)))
+		scheduleInfinity=strtoint(trim$(data$(1)))
 		iff repeatSchedule = 0 or repeatSchedule = 1 then #optRepeatSchedule$=repeatSchedule
 		iff scheduleInfinity = 0 or scheduleInfinity = 1 then #optruntimeinfinite$=scheduleInfinity
 	end if
 end sub
+
+Function getschedule(dims prop$, dimi videochl,byref dims propVal$())
+	dimi pos1, pos2	,ret
+	dims userdetail$
+	dims retVal$
+	
+	ret=HTTPDNLD(~camAddPath$+"vb.htm?"+prop$+"="+videochl, "","test1.txt",2,SUPRESSUI,~authHeader$,,,userdetail$)
+	pprint "userdetail"+userdetail$
+	if ret > 0 then
+		retVal$ = trim$(userdetail$)
+		dims arrStr$,showarr$(7)
+		dimi retVal,jjj
+		retVal = split(arrStr$, retVal$, "\n") 
+		showarr$ = arrStr$
+		for jjj=0 to MAX_DAYS-1
+			recordSchedule$(jjj)="0"+trim$(showarr$(jjj))
+		next			
+		return ret
+	else
+		return ret
+	endif
+	
+End Function
+
+
+//&schedule=000101100000000000
+//&schedule=01102000000235959
+//&schedule=02103000000235959
+//&schedule=003001000000000000
+//&schedule=004001000000000000
+//&schedule=005001000000000000
+//&schedule=006001000000000000

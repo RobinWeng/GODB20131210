@@ -1836,7 +1836,7 @@ Function getStorageRec(byref Dims commandtype$,dimi videochannel,byref dims resp
 		return -10	
 	end if 		
 End Function
-
+/*
 Function getschedule(byref Dims commandtype$,dimi videochannel,byref dims recordSchedule$())
 	dimi ret,retVal
 	dims responeData$
@@ -1847,7 +1847,7 @@ Function getschedule(byref Dims commandtype$,dimi videochannel,byref dims record
 		return -10	
 	end if 		
 End Function
-
+*/
 //function getStorageSetting(byref dimi uploadbyFTP,byref dimi ftpfileformat,byref dims ftpfileformatname$, byref dimi storeLocally, _
 //						   byref dimi sdfileformat,byref dims sdfileformatname$, byref dimi localStorage, byref dimi repeatSchedule, byref dimi noOfWeeks, _
 //						   byref dims recordSchedule$(),byref dimi scheduleInfinity,byref dimi sdCard)
@@ -1897,7 +1897,7 @@ Function setStorageRec(dimi videochannel,dimi repeatSchedule, _
 	dims storage$
 	dims responsedata$
 	dimi ret
-	storage$="setstoragerec="+videochannel+"@"+repeatSchedule+"@"+scheduleInfinity+"&schedule="+recordSchedule$
+	storage$="setstoragerec="+videochannel+"@"+repeatSchedule+"@"+scheduleInfinity+"&"+recordSchedule$
 //	msgbox(plc$)
 	ret = setProperties(storage$, responseData$)	
 	return ret					
