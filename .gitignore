@@ -1,0 +1,6 @@
+Win32_Debug/
+Win32_Release/
+Maintenance_HTML/
+images/
+*.gws
+*.gz

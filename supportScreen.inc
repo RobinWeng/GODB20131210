@@ -1,0 +1,22 @@
+LabelName$(0) = "lblActivexVersion" : XPos(0) = 367: YPos(0) = 232: Wdh(0) = 149: Height(0) = 14
+LabelName$(1) = "txtcamera" : XPos(1) = 511: YPos(1) = 75: Wdh(1) = 162: Height(1) = -1
+LabelName$(2) = "txtKernelVersion" : XPos(2) = 511: YPos(2) = 145: Wdh(2) = 317: Height(2) = -1
+LabelName$(3) = "txtUbootVersion" : XPos(3) = 511: YPos(3) = 174: Wdh(3) = 317: Height(3) = -1
+LabelName$(4) = "txtSWversion" : XPos(4) = 511: YPos(4) = 203: Wdh(4) = 317: Height(4) = -1
+LabelName$(5) = "txtactiveXVersion" : XPos(5) = 511: YPos(5) = 232: Wdh(5) = 317: Height(5) = -1
+LabelName$(6) = "txtGUIVersion" : XPos(6) = 511: YPos(6) = 262: Wdh(6) = 317: Height(6) = -1
+LabelName$(7) = "TxtALicense" : XPos(7) = 511: YPos(7) = 300: Wdh(7) = 402: Height(7) = 83
+LabelName$(8) = "txtASupportDocs" : XPos(8) = 511: YPos(8) = 384: Wdh(8) = 402: Height(8) = 83
+LabelName$(9) = "txtACredits" : XPos(9) = 511: YPos(9) = 468: Wdh(9) = 402: Height(9) = 83
+LabelName$(10) = "txtACopyright" : XPos(10) = 511: YPos(10) = 552: Wdh(10) = 402: Height(10) = 83
+LabelName$(11) = "lblCamera" : XPos(11) = 310: YPos(11) = 75: Wdh(11) = 80: Height(11) = 14
+LabelName$(12) = "lblAbout" : XPos(12) = 310: YPos(12) = 106: Wdh(12) = 141: Height(12) = 12
+LabelName$(13) = "lblReleaseVersion" : XPos(13) = 334: YPos(13) = 125: Wdh(13) = 125: Height(13) = 14
+LabelName$(14) = "lblKernel Version" : XPos(14) = 367: YPos(14) = 145: Wdh(14) = 106: Height(14) = 14
+LabelName$(15) = "lblUbootVersion" : XPos(15) = 367: YPos(15) = 174: Wdh(15) = 106: Height(15) = 14
+LabelName$(16) = "lblSoftwareVersion" : XPos(16) = 367: YPos(16) = 203: Wdh(16) = 114: Height(16) = 14
+LabelName$(17) = "lblGUIVersion" : XPos(17) = 367: YPos(17) = 262: Wdh(17) = 92: Height(17) = 14
+LabelName$(18) = "lblLicense" : XPos(18) = 334: YPos(18) = 300: Wdh(18) = 80: Height(18) = 14
+LabelName$(19) = "lblsupportDocs" : XPos(19) = 334: YPos(19) = 384: Wdh(19) = 108: Height(19) = 13
+LabelName$(20) = "lblCredits" : XPos(20) = 334: YPos(20) = 468: Wdh(20) = 67: Height(20) = 14
+LabelName$(21) = "lblCopyRight" : XPos(21) = 334: YPos(21) = 552: Wdh(21) = 80: Height(21) = 14

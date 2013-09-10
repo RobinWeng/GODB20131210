@@ -1,0 +1,13 @@
+LabelName$(0) = "txtusername" : XPos(0) = 544: YPos(0) = 86: Wdh(0) = 159: Height(0) = -1
+LabelName$(1) = "password" : XPos(1) = 544: YPos(1) = 121: Wdh(1) = 159: Height(1) = -1
+LabelName$(2) = "pwdconfirm" : XPos(2) = 544: YPos(2) = 153: Wdh(2) = 159: Height(2) = -1
+LabelName$(3) = "optauthority" : XPos(3) = 544: YPos(3) = 188: Wdh(3) = 75: Height(3) = 14
+LabelName$(4) = "optauthority[1]" : XPos(4) = 627: YPos(4) = 188: Wdh(4) = 82: Height(4) = 14
+LabelName$(5) = "optauthority[2]" : XPos(5) = 716: YPos(5) = 188: Wdh(5) = 67: Height(5) = 14
+LabelName$(6) = "cmdSave" : XPos(6) = 544: YPos(6) = 232: Wdh(6) = 80: Height(6) = 20
+LabelName$(7) = "cmdcancel" : XPos(7) = 629: YPos(7) = 232: Wdh(7) = 80: Height(7) = 20
+LabelName$(8) = "eguserlist" : XPos(8) = 336: YPos(8) = 268: Wdh(8) = 582: Height(8) = 291
+LabelName$(9) = "lblusername" : XPos(9) = 403: YPos(9) = 86: Wdh(9) = 127: Height(9) = 14
+LabelName$(10) = "lblpwd" : XPos(10) = 403: YPos(10) = 121: Wdh(10) = 127: Height(10) = 14
+LabelName$(11) = "lblconfirmpwd" : XPos(11) = 403: YPos(11) = 153: Wdh(11) = 127: Height(11) = 14
+LabelName$(12) = "lblauthority" : XPos(12) = 403: YPos(12) = 188: Wdh(12) = 80: Height(12) = 14

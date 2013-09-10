@@ -1,0 +1,22 @@
+
+<LABEL UID="1"
+Name="lblDummy"
+Value="Not Available"
+X="291"
+Y="162"
+Font="9"
+W="302"
+H="58"
+BG="0"
+Brdr="0"
+SelBG="0"
+SelBrdr="0"
+/>
+<BUTTON UID="2"
+Name="cmdHome"
+Value="Home"
+X="291"
+Y="276"
+W="100"
+H="20"
+/>
